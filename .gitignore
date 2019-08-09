@@ -1,0 +1,4 @@
+# -*- mode: gitignore; -*-
+
+emacs/lisp/custom.el
+.DS_Store

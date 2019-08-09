@@ -1,0 +1,179 @@
+" find intellij actions by `:actionlist`
+
+set gdefault
+set incsearch " incremental search
+set hlsearch " 검색 결과 강조
+set ignorecase " 대소문자 무시 검색
+set smartcase " 대문자가 검색 문자열에 있을때는 noignorecase
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+set clipboard=unnamedplus,unnamed " use system clipboard
+
+set surround
+
+" Allow backspace and cursor keys to cross line boundaries
+set whichwrap+=<,>,h,l
+
+" black hole register
+vmap <backspace> "_d
+vmap <del> "_d
+
+let mapleader = " "
+nnormap <SPACE><Nop>
+
+" tab is used in karabiner as <C-i>, <C-d> as delete
+nmap <tab>           :action Forward<CR>
+nmap <delete>        <C-d>
+vmap <tab>           :<Backspace><Backspace><Backspace><Backspace><Backspace>action Forward<CR>
+vmap <delete>        <C-d>
+
+" ============================================================================
+" emacs keymaping for cursor movement{{{
+" You have to unbind C-g before it works
+" ============================================================================
+nmap <c-g> <Esc>
+vmap <c-g> <Esc>
+imap <c-g> <Esc>a
+nmap <c-a> ^
+nmap <c-e> $
+vmap <c-a> ^
+vmap <c-e> $
+imap <c-e> <Esc>A
+imap <c-a> <Esc>I
+imap <c-d> <del>
+inoremap <c-p> <up>
+inoremap <c-n> <down>
+" command line
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+"}}}
+
+nmap <leader><Space> :action GotoAction<CR>
+
+
+" ============================================================================
+" expand and collapse
+" ============================================================================
+nmap zr :action ExpandAllRegions<CR>
+vmap zr :<Backspace><Backspace><Backspace><Backspace>action ExpandAllRegions<CR>
+
+nmap zo :action ExpandRegion<CR>
+vmap zo :<Backspace><Backspace><Backspace><Backspace>action ExpandRegion<CR>
+
+nmap zc :action CollapseRegion<CR>
+vmap zc :<Backspace><Backspace><Backspace><Backspace>action CollapseRegion<CR>
+
+nmap zm :action CollapseAllRegions<CR>
+vmap zm :<Backspace><Backspace><Backspace><Backspace>action CollapseAllRegions<CR>
+
+
+" ============================================================================
+" SPC f : file
+" ============================================================================
+nmap <leader>ff      :action GotoFile<CR>
+vmap <leader>ff      :<Backspace><Backspace><Backspace><Backspace>action GotoFile<CR>
+nmap <C-c>pf      :action GotoFile<CR>
+vmap <C-c>pf      :<Backspace><Backspace><Backspace><Backspace>action GotoFile<CR>
+
+nmap <C-x>b      :action RecentFiles<CR>
+vmap <C-x>b      :<Backspace><Backspace><Backspace><Backspace>action RecentFiles<CR>
+
+nmap <leader>fc      :action GotoClass<CR>
+vmap <leader>fc      :<Backspace><Backspace><Backspace><Backspace>action GotoClass<CR>
+
+
+" ============================================================================
+" SPC b : buffer
+" ============================================================================
+nmap <leader>bb      :action FileStructurePopup<CR>
+vmap <leader>bb      :<Backspace><Backspace><Backspace><Backspace>action FileStructurePopup<CR>
+
+nmap <leader>bf      :action ReformatCode<CR>
+vmap <leader>bf      :<Backspace><Backspace><Backspace><Backspace>action ReformatCode<CR>
+
+nmap <leader>br      :action RenameElement<CR>
+vmap <leader>br      :<Backspace><Backspace><Backspace><Backspace>action RenameElement<CR>
+
+nmap <leader>bs			 :action ShowIntentionActions<CR>
+vmap <leader>bs			 :<Backspace><Backspace><Backspace><Backspace>action ShowIntentionActions<CR>
+
+
+" ============================================================================
+" SPC d : debug
+" ============================================================================
+
+nmap <leader>dc      :action ChooseDebugConfiguration<CR>
+vmap <leader>dc      :<Backspace><Backspace><Backspace><Backspace>action ChooseDebugConfiguration<CR>
+
+nmap <leader>dd      :action Debug<CR>
+vmap <leader>dd      :<Backspace><Backspace><Backspace><Backspace>action Debug<CR>
+
+nmap <leader>df      :action DebugClass<CR>
+vmap <leader>df      :<Backspace><Backspace><Backspace><Backspace>action DebugClass<CR>
+
+" ============================================================================
+" SPC g : source move
+" ============================================================================
+
+nmap <leader>gb      :action Back<CR>
+vmap <leader>gb      :<Backspace><Backspace><Backspace><Backspace>action Back<CR>
+
+nmap <leader>gf      :action Forward<CR>
+vmap <leader>gf      :<Backspace><Backspace><Backspace><Backspace>action Forward<CR>
+
+nmap <leader>gd      :action GotoDeclaration<CR>
+vmap <leader>gd      :<Backspace><Backspace><Backspace><Backspace>action GotoDeclaration<CR>
+
+nmap <leader>gi      :action ImplementMethods<CR>
+vmap <leader>gi      :<Backspace><Backspace><Backspace><Backspace>action ImplementMethods<CR>
+
+nmap <leader>gu      :action FindUsages<CR>
+vmap <leader>gu      :<Backspace><Backspace><Backspace><Backspace>action FindUsages<CR>
+
+
+" ============================================================================
+" SPC p : project
+" ============================================================================
+nmap <leader>ps :action FindInPath<CR>
+vmap <leader>ps :<Backspace><Backspace><Backspace><Backspace>action FindInPath<CR>
+" nmap <leader>rr			 :action ReplaceInPath<CR>
+
+
+" ============================================================================
+" SPC t : toggle
+" ============================================================================
+nmap <leader>tb      :action ToggleBookmark<CR>
+vmap <leader>tb      :<Backspace><Backspace><Backspace><Backspace>action ToggleBookmark<CR>
+
+nmap <leader>tt      :action ToggleLineBreakpoint<CR>
+vmap <leader>tt      :<Backspace><Backspace><Backspace><Backspace>action ToggleLineBreakpoint<CR>
+
+nmap <leader>tw      :action ToggleDistractionFreeMode<CR>
+vmap <leader>tw      :<Backspace><Backspace><Backspace><Backspace>action ToggleDistractionFreeMode<CR>
+
+
+" ============================================================================
+" SPC w : windows
+" ============================================================================
+nmap <leader>wh <c-w>h
+nmap <leader>wl <c-w>l
+nmap <leader>wk <c-w>k
+nmap <leader>wj <c-w>j
+nmap <leader>wv <c-w>v
+nmap <leader>ws <c-w>s
+nmap <leader>wc <c-w>c
+nmap <leader>wo :action HideAllWindows<CR>
+
+
+" ============================================================================
+" misc
+" ============================================================================
+nmap <leader>mR			:source ~/.ideavimrc<CR>
+vmap <leader>mR			:<Backspace><Backspace><Backspace><Backspace>source ~/.ideavimrc<CR>
+
+nmap <leader>ms     :action SelectInProjectView<CR>
+vmap <leader>ms     :<Backspace><Backspace><Backspace><Backspace>action SelectInProjectView<CR>
+
+nmap <leader>mt      :action ActivateTerminalToolWindow<CR>
+vmap <leader>mt			:<Backspace><Backspace><Backspace><Backspace>:action ActivateTerminalToolWindow<CR>

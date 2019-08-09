@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: nikola
+# key: nikola
+# --
+#+BEGIN_COMMENT
+.. title: ${1:post title}
+.. slug: ${1:$(replace-regexp-in-string
+		 "[^0-9a-z-]" ""
+	   (replace-regexp-in-string
+	     " " "-"
+	     (downcase yas-text)))}
+.. date: `(format-time-string "%Y-%m-%d %H:%M:%S %Z%z")`
+.. tags:
+.. category:
+.. link:
+.. description:
+.. type: text
+#+END_COMMENT
+
+$0
