@@ -776,6 +776,7 @@
 (use-package plantuml-mode
 	:ensure t
 	:init
+	(setq plantuml-default-exec-mode 'jar)
 	(setq plantuml-jar-path "~/.emacs.d/bin/plantuml/plantuml.jar"))
 
 (use-package fill-column-indicator
