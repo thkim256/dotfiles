@@ -1,4 +1,12 @@
 # -*- mode: gitignore; -*-
 
-emacs/lisp/custom.el
 .DS_Store
+emacs/elpa
+emacs/autosaves
+emacs/auto-save-list
+emacs/helm-adaptive-history
+emacs/private.el
+emacs/init.elc
+emacs/projectile-bookmarks.eld
+emacs/recentf
+emacs/bookmarks
