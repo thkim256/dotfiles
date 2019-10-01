@@ -125,8 +125,8 @@ vmap <leader>gf      :<Backspace><Backspace><Backspace><Backspace>action Forward
 nmap <leader>gd      :action GotoDeclaration<CR>
 vmap <leader>gd      :<Backspace><Backspace><Backspace><Backspace>action GotoDeclaration<CR>
 
-nmap <leader>gi      :action ImplementMethods<CR>
-vmap <leader>gi      :<Backspace><Backspace><Backspace><Backspace>action ImplementMethods<CR>
+nmap <leader>gi      :action GotoImplementation<CR>
+vmap <leader>gi      :<Backspace><Backspace><Backspace><Backspace>action GotoImplementation<CR>
 
 nmap <leader>gu      :action FindUsages<CR>
 vmap <leader>gu      :<Backspace><Backspace><Backspace><Backspace>action FindUsages<CR>
