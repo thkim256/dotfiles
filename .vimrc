@@ -27,7 +27,7 @@ call plug#end()
 let mapleader = " "
 
 syntax on " syntax highlighting
-set clipboard=unnamed " use OS clipboard
+set clipboard=unnamedplus " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
 set nocompatible  " be iMproved
 "set nu " line number
 set rnu " relative  line number
@@ -50,6 +50,7 @@ set wildmenu "명령어 tab completion
 set enc=utf-8
 set fencs=ucs-bom,utf-8,cp949
 set fenc=utf-8
+set mmp=10000
 
 " sound, visual bell 둘 다 비활성화.
 set noerrorbells visualbell t_vb=
@@ -57,24 +58,35 @@ autocmd GUIEnter * set visualbell t_vb=
 
 colorscheme onedark
 if has("win32")
-	lang mes en
-		" E303: Unable to open swap file for [No Name], recovery impossible
-		set directory=.,$TEMP
+  lang mes en
+  " E303: Unable to open swap file for [No Name], recovery impossible
+  set directory=.,$TEMP
 endif
 
 if has('gui_running')
-	set guioptions-=T " no toolbar
-	set guioptions-=m " no memnubar
-	if has("win32")
-		source $VIMRUNTIME/delmenu.vim
-		set langmenu=ko_kr.utf-8
-		source $VIMRUNTIME/menu.vim
-	endif
+  set guioptions-=T " no toolbar
+  set guioptions-=m " no memnubar
+  if has("win32")
+    source $VIMRUNTIME/delmenu.vim
+    set langmenu=ko_kr.utf-8
+    source $VIMRUNTIME/menu.vim
+  endif
 else
   "set background=dark
 endif
 
 autocmd BufWinEnter *.{md,mkd,mkdn,mark*} silent setf markdown
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 "!+ vim-go
 let g:go_fmt_command = 'goimports'
@@ -93,18 +105,20 @@ augroup nhooyr_go
 augroup END
 "!- vim-go
 
+let g:tagbar_type_groovy = {
+      \ 'ctagstype' : 'groovy',
+      \ 'kinds'     : [
+      \ 'p:package:1',
+      \ 'c:classes',
+      \ 'i:interfaces',
+      \ 't:traits',
+      \ 'e:enums',
+      \ 'm:methods',
+      \ 'f:fields:1'
+      \ ]
+      \ }
+
 nmap <F8> :TagbarToggle<CR>
 nmap <C-p> :Files<Cr>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <Leader>ms :NERDTreeFind<CR>
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsEditSplit="vertical"
