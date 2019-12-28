@@ -27,7 +27,7 @@ call plug#end()
 let mapleader = " "
 
 syntax on " syntax highlighting
-set clipboard=unnamedplus " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
+set clipboard=unnamed " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
 set nocompatible  " be iMproved
 "set nu " line number
 set rnu " relative  line number
