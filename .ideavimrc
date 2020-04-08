@@ -73,11 +73,9 @@ vmap zm :<Backspace><Backspace><Backspace><Backspace>action CollapseAllRegions<C
 " ============================================================================
 nmap <leader>ff      :action GotoFile<CR>
 vmap <leader>ff      :<Backspace><Backspace><Backspace><Backspace>action GotoFile<CR>
-nmap <C-c>pf      :action GotoFile<CR>
-vmap <C-c>pf      :<Backspace><Backspace><Backspace><Backspace>action GotoFile<CR>
 
-nmap <C-x>b      :action RecentFiles<CR>
-vmap <C-x>b      :<Backspace><Backspace><Backspace><Backspace>action RecentFiles<CR>
+nmap <leader>fe      :action RecentChangedFiles<CR>
+vmap <leader>fe      :<Backspace><Backspace><Backspace><Backspace>action RecentChangedFiles<CR>
 
 nmap <leader>fc      :action GotoClass<CR>
 vmap <leader>fc      :<Backspace><Backspace><Backspace><Backspace>action GotoClass<CR>

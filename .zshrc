@@ -92,12 +92,6 @@ build_prompt() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/thkim256/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/thkim256/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/thkim256/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/thkim256/google-cloud-sdk/completion.zsh.inc'; fi
-
 export LANG=ko_KR.UTF-8
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll='ls -alF'
@@ -105,5 +99,3 @@ alias k='kubectl'
 export GOPATH=$(go env GOPATH)
 export PATH="$HOME/.jenv/bin:$PATH:$GOPATH/bin"
 eval "$(jenv init -)"
-
-
