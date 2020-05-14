@@ -1,24 +1,22 @@
 call plug#begin('~/.vim/plugged')
 Plug 'joshdick/onedark.vim'
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'valloric/youcompleteme', { 'do': './install.py --go-completer' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
-Plug 'valloric/youcompleteme'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
 
-Plug 'dag/vim-fish'
+Plug 'vim-scripts/AnsiEsc.vim' " Ansi color 적용
 
-Plug 'posva/vim-vue'
 Plug 'asciidoc/vim-asciidoc'
 call plug#end()
 
@@ -27,7 +25,7 @@ call plug#end()
 let mapleader = " "
 
 syntax on " syntax highlighting
-set clipboard=unnamed " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
+set clipboard=unnamedplus " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
 set nocompatible  " be iMproved
 "set nu " line number
 set rnu " relative  line number
@@ -46,7 +44,7 @@ set smartcase " 대문자가 검색 문자열에 있을때는 noignorecase
 set laststatus=2 " vim-powerline이 꾸며주는 상태바를 항상 출력하기 위해
 set hidden
 set autowrite
-set wildmenu "명령어 tab completion 
+set wildmenu "명령어 tab completion
 set enc=utf-8
 set fencs=ucs-bom,utf-8,cp949
 set fenc=utf-8
