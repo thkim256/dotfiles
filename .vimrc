@@ -1,10 +1,19 @@
 call plug#begin('~/.vim/plugged')
 Plug 'joshdick/onedark.vim'
-
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'valloric/youcompleteme', { 'do': './install.py --go-completer' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/seoul256.vim'
+
+Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+Plug 'roxma/vim-tmux-clipboard'
+
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
@@ -18,14 +27,21 @@ Plug 'tpope/vim-speeddating'
 Plug 'vim-scripts/AnsiEsc.vim' " Ansi color 적용
 
 Plug 'asciidoc/vim-asciidoc'
+
+Plug 'yggdroot/indentline'
+
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
 call plug#end()
 
-" behave mswin
+syntax enable " syntax highlighting
+let g:rehash256 = 1
+set t_Co=256
 
 let mapleader = " "
-
-syntax on " syntax highlighting
-set clipboard=unnamedplus " https://vim.fandom.com/wiki/Accessing_the_system_clipboard
+set clipboard=unnamed " https://vim.fandom.com/wiki/Accessing_the_symtem_clipboard
 set nocompatible  " be iMproved
 "set nu " line number
 set rnu " relative  line number
@@ -50,11 +66,13 @@ set fencs=ucs-bom,utf-8,cp949
 set fenc=utf-8
 set mmp=10000
 
+set termguicolors
 " sound, visual bell 둘 다 비활성화.
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 colorscheme onedark
+
 if has("win32")
   lang mes en
   " E303: Unable to open swap file for [No Name], recovery impossible
@@ -72,7 +90,6 @@ if has('gui_running')
 else
   "set background=dark
 endif
-
 autocmd BufWinEnter *.{md,mkd,mkdn,mark*} silent setf markdown
 
 " make YCM compatible with UltiSnips (using supertab)
@@ -87,21 +104,88 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 "!+ vim-go
-let g:go_fmt_command = 'goimports'
-let g:go_metalinter_command = 'gometalinter'
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:go_gocode_propose_builtins = 0
-let g:go_template_autocreate = 0
-let g:go_fmt_autosave = 0
-let g:go_echo_go_info = 0
+" ==================== vim-go ====================
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_debug_windows = {
+      \ 'vars':  'leftabove 35vnew',
+      \ 'stack': 'botright 10new',
+\ }
+
+let g:go_test_prepend_name = 1
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+
+let g:go_null_module_warning = 0
+let g:go_echo_command_info = 1
+
+let g:go_autodetect_gopath = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint']
+
+let g:go_info_mode = 'gopls'
+let g:go_rename_command='gopls'
+let g:go_gopls_complete_unimported = 1
+let g:go_implements_mode='gopls'
+let g:go_diagnostics_enabled = 1
+let g:go_doc_popup_window = 1
+
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 0
+let g:go_highlight_operators = 1
 let g:go_highlight_format_strings = 0
-augroup nhooyr_go
+let g:go_highlight_function_calls = 0
+let g:go_gocode_propose_source = 1
+
+let g:go_modifytags_transform = 'camelcase'
+let g:go_fold_enable = []
+
+nmap <C-o> :GoDecls<cr>
+imap <C-o> <esc>:<C-u>GoDecls<cr>
+
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+
+augroup go
   autocmd!
-  autocmd FileType go nmap <Leader>gi :GoImport<space>
-  autocmd FileType go nmap <Leader>gn :GoInfo<CR>
+
+  autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+
+  autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+
+  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
+  autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
+
+  "autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
+  autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
+  autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
+
+  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+
+  " I like these more!
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
-"!- vim-go
+
 
 let g:tagbar_type_groovy = {
       \ 'ctagstype' : 'groovy',
@@ -117,6 +201,10 @@ let g:tagbar_type_groovy = {
       \ }
 
 nmap <F8> :TagbarToggle<CR>
-nmap <C-p> :Files<Cr>
+nmap <C-p> :Files<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <Leader>ms :NERDTreeFind<CR>
+nmap <Leader>b :BuffergatorOpen<CR>
+
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
