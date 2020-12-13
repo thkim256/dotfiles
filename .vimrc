@@ -10,7 +10,6 @@ Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 
 Plug 'roxma/vim-tmux-clipboard'
 
@@ -20,15 +19,13 @@ Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-
-Plug 'jceb/vim-orgmode'
+Plug 'yggdroot/indentline'
 Plug 'tpope/vim-speeddating'
-
 Plug 'vim-scripts/AnsiEsc.vim' " Ansi color 적용
-
 Plug 'asciidoc/vim-asciidoc'
 
-Plug 'yggdroot/indentline'
+Plug 'jceb/vim-orgmode'
+Plug 'plasticboy/vim-markdown'
 
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
@@ -36,14 +33,41 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 call plug#end()
 
-syntax enable " syntax highlighting
+syntax on
 let g:rehash256 = 1
-set t_Co=256
-
 let mapleader = " "
+
+"https://github.com/vim/vim/issues/3608
+" This is only necessary if you use "set termguicolors".
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" fixes glitch? in colors when using vim with tmux
+set background=dark
+set t_Co=256
+"set termguicolors
+
+colorscheme onedark
+
+if has('gui_running')
+  set guioptions-=T " no toolbar
+  set guioptions-=m " no memnubar
+  if has("win32")
+    source $VIMRUNTIME/delmenu.vim
+    set langmenu=ko_kr.utf-8
+    source $VIMRUNTIME/menu.vim
+  endif
+endif
+
+if has("win32")
+  lang mes en
+  " E303: Unable to open swap file for [No Name], recovery impossible
+  set directory=.,$TEMP
+endif
+
+
 set clipboard=unnamed " https://vim.fandom.com/wiki/Accessing_the_symtem_clipboard
 set nocompatible  " be iMproved
-"set nu " line number
+set nu
 set rnu " relative  line number
 set ts=2
 set sw=2
@@ -65,31 +89,9 @@ set enc=utf-8
 set fencs=ucs-bom,utf-8,cp949
 set fenc=utf-8
 set mmp=10000
+set noerrorbells visualbell t_vb= " sound, visual bell 둘 다 비활성화.
 
-set termguicolors
-" sound, visual bell 둘 다 비활성화.
-set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
-
-colorscheme onedark
-
-if has("win32")
-  lang mes en
-  " E303: Unable to open swap file for [No Name], recovery impossible
-  set directory=.,$TEMP
-endif
-
-if has('gui_running')
-  set guioptions-=T " no toolbar
-  set guioptions-=m " no memnubar
-  if has("win32")
-    source $VIMRUNTIME/delmenu.vim
-    set langmenu=ko_kr.utf-8
-    source $VIMRUNTIME/menu.vim
-  endif
-else
-  "set background=dark
-endif
 autocmd BufWinEnter *.{md,mkd,mkdn,mark*} silent setf markdown
 
 " make YCM compatible with UltiSnips (using supertab)
@@ -105,49 +107,46 @@ let g:UltiSnipsEditSplit="vertical"
 
 "!+ vim-go
 " ==================== vim-go ====================
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "goimports"
-let g:go_debug_windows = {
-      \ 'vars':  'leftabove 35vnew',
-      \ 'stack': 'botright 10new',
-\ }
+"let g:go_fmt_fail_silently = 1
+"let g:go_fmt_command = "goimports"
+"let g:go_debug_windows = {
+      "\ 'vars':  'leftabove 35vnew',
+      "\ 'stack': 'botright 10new',
+"\ }
 
-let g:go_test_prepend_name = 1
-let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 0
-let g:go_auto_sameids = 0
+"let g:go_test_prepend_name = 1
+"let g:go_list_type = "quickfix"
+"let g:go_auto_type_info = 0
+"let g:go_auto_sameids = 0
+"let g:go_null_module_warning = 0
+"let g:go_echo_command_info = 1
+"let g:go_autodetect_gopath = 1
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+"let g:go_metalinter_enabled = ['vet', 'golint']
+"let g:go_gocode_propose_source = 1
+"let g:go_modifytags_transform = 'camelcase'
+"let g:go_fold_enable = []
+"let g:go_info_mode = 'gopls'
+"let g:go_rename_command='gopls'
+"let g:go_implements_mode='gopls'
+"let g:go_gopls_complete_unimported = 1
+"let g:go_diagnostics_enabled = 1
+"let g:go_doc_popup_window = 1
 
-let g:go_null_module_warning = 0
-let g:go_echo_command_info = 1
-
-let g:go_autodetect_gopath = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-let g:go_metalinter_enabled = ['vet', 'golint']
-
-let g:go_info_mode = 'gopls'
-let g:go_rename_command='gopls'
-let g:go_gopls_complete_unimported = 1
-let g:go_implements_mode='gopls'
-let g:go_diagnostics_enabled = 1
-let g:go_doc_popup_window = 1
-
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 0
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 0
+let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
-let g:go_highlight_format_strings = 0
-let g:go_highlight_function_calls = 0
-let g:go_gocode_propose_source = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 
-let g:go_modifytags_transform = 'camelcase'
-let g:go_fold_enable = []
 
 nmap <C-o> :GoDecls<cr>
 imap <C-o> <esc>:<C-u>GoDecls<cr>
-
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -158,7 +157,6 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-
 
 augroup go
   autocmd!
@@ -185,7 +183,6 @@ augroup go
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
-
 
 let g:tagbar_type_groovy = {
       \ 'ctagstype' : 'groovy',

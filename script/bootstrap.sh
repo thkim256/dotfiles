@@ -7,22 +7,16 @@ dotpath="$(dirname "$PWD")"
 
 echo dotpath : $dotpath
 
-#############################################################
-# emacs 
-#############################################################
-mkdir -p ~/.emacs.d
-ln -s $dotpath/emacs/* ~/.emacs.d
-touch ~/.emacs.d/custom.el 
+# plug
+curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-#############################################################
-# vim
-#############################################################
-ln -s $dotpath/vim/vimrc ~/.vimrc
-
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-#############################################################
-# intellij
-#############################################################
-ln -s $dotpath/intellij/ideavimrc ~/.ideavimrc
+# Symbol link
+# -----------
+ln -s $dotpath/.zshrc $HOME/.zshrc
+ln -s $dotpath/.vimrc $HOME/.vimrc
+ln -s $dotpath/.ctags $HOME/.ctags
+ln -s $dotpath/.tmux $HOME/.tmux
+ln -s $dotpath/.gitattributes $HOME/.gitattributes
+ln -s $dotpath/.gitignore $HOME/.gitignore
+ln -s $dotpath/.ideavimrc $HOME/.ideavimrc
