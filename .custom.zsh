@@ -9,6 +9,10 @@ function acc-exec() {
   kubectl -n accordion exec -ti $(kubectl get pod -l app=accordion -o jsonpath="{.items[0].metadata.name}" -n accordion) -- bash
 }
 
+function gc-swp() {
+  find /Users/thkim256 -type f -name '*.swp' -exec rm -rf {} \;
+}
+
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 export TMPDIR=/tmp
 #export PATH=$PATH:/usr/local/apiserver-builder/bin

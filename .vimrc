@@ -107,31 +107,31 @@ let g:UltiSnipsEditSplit="vertical"
 
 "!+ vim-go
 " ==================== vim-go ====================
-"let g:go_fmt_fail_silently = 1
-"let g:go_fmt_command = "goimports"
-"let g:go_debug_windows = {
-      "\ 'vars':  'leftabove 35vnew',
-      "\ 'stack': 'botright 10new',
-"\ }
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_debug_windows = {
+      \ 'vars':  'leftabove 35vnew',
+      \ 'stack': 'botright 10new',
+\ }
 
-"let g:go_test_prepend_name = 1
-"let g:go_list_type = "quickfix"
-"let g:go_auto_type_info = 0
-"let g:go_auto_sameids = 0
-"let g:go_null_module_warning = 0
-"let g:go_echo_command_info = 1
-"let g:go_autodetect_gopath = 1
-"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-"let g:go_metalinter_enabled = ['vet', 'golint']
-"let g:go_gocode_propose_source = 1
-"let g:go_modifytags_transform = 'camelcase'
-"let g:go_fold_enable = []
-"let g:go_info_mode = 'gopls'
-"let g:go_rename_command='gopls'
-"let g:go_implements_mode='gopls'
-"let g:go_gopls_complete_unimported = 1
-"let g:go_diagnostics_enabled = 1
-"let g:go_doc_popup_window = 1
+let g:go_test_prepend_name = 1
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+let g:go_null_module_warning = 0
+let g:go_echo_command_info = 1
+let g:go_autodetect_gopath = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint']
+let g:go_gocode_propose_source = 1
+let g:go_modifytags_transform = 'camelcase'
+let g:go_fold_enable = []
+let g:go_info_mode = 'gopls'
+let g:go_rename_command='gopls'
+let g:go_implements_mode='gopls'
+let g:go_gopls_complete_unimported = 1
+let g:go_diagnostics_enabled = 1
+let g:go_doc_popup_window = 1
 
 let g:go_highlight_space_tab_error = 1
 let g:go_highlight_array_whitespace_error = 1
@@ -205,3 +205,8 @@ nmap <Leader>b :BuffergatorOpen<CR>
 
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+
+let g:airline#extensions#tabline#enabled = 1              " vim-airline 버퍼 목록 켜기
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'default'

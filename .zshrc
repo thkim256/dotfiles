@@ -29,4 +29,3 @@ alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox
 alias ls='ls -G'
 alias ll='ls -lah'
 alias k='kubectl'
-alias emacs='emacs -nw'
