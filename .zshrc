@@ -11,10 +11,10 @@ source $ZSH/oh-my-zsh.sh
 #colors
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.custom.zsh ] && source ~/.custom.zsh
 #[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 [ -f /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
 [ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
+[ -f ~/.custom.sh ] && source ~/.custom.sh
 
 #setopt PROMPT_SUBST
 #if [ $UID -eq 0 ]; then CARETCOLOR="red"; else CARETCOLOR="blue"; fi
@@ -29,3 +29,4 @@ alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox
 alias ls='ls -G'
 alias ll='ls -lah'
 alias k='kubectl'
+alias emacs='emacs -nw'
